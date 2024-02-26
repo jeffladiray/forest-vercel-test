@@ -11,7 +11,7 @@ import pg from 'pg';
 import type { Schema } from './typings';
 import path from 'path';
 import fs from 'fs';
-export default (async () => {
+export default (async function handler() {
   try {
 
     const dbCredentials = {
@@ -58,10 +58,10 @@ export default (async () => {
           dialectModule: pg,
         }, { introspection }),
       )
-      .customizeCollection('users', usersCustomization)
-      .customizeCollection('tickets', ticketsCustomization)
-      .customizeCollection('orders', ordersCustomization)
-      .customizeCollection('coupons', couponsCustomization);
+      // .customizeCollection('users', usersCustomization)
+      // .customizeCollection('tickets', ticketsCustomization)
+      // .customizeCollection('orders', ordersCustomization)
+      // .customizeCollection('coupons', couponsCustomization);
     
     agent.mountOnStandaloneServer(3310);
     
@@ -72,4 +72,4 @@ export default (async () => {
   } catch(err) {
     console.error(err);
   }
-});
+})();
