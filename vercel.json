@@ -14,7 +14,7 @@
       "use": "@vercel/static"
     },
     {
-      "src": "my-database-instropection.json",
+      "src": "my-database-introspection.json",
       "use": "@vercel/static"
     },
     {
