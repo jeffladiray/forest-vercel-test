@@ -7,7 +7,7 @@ import usersCustomization from './customizations/users';
 import ticketsCustomization from './customizations/tickets';
 import ordersCustomization from './customizations/orders';
 import couponsCustomization from './customizations/coupons';
-
+import pg from 'pg';
 import type { Schema } from './typings';
 
 const agent = createAgent<Schema>({
@@ -27,6 +27,7 @@ agent
       schema: process.env.DATABASE_SCHEMA,
       sslMode: process.env.DATABASE_SSL_MODE as SslMode,
       dialect: 'postgres',
+      dialectModule: pg,
     }),
   )
   .customizeCollection('users', usersCustomization)
