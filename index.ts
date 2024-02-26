@@ -9,6 +9,9 @@ import ordersCustomization from './customizations/orders';
 import couponsCustomization from './customizations/coupons';
 import pg from 'pg';
 import type { Schema } from './typings';
+import path from 'path';
+console.log(__dirname);
+console.log(path.resolve(__dirname, './.forestadmin-schema.json'));
 
 const agent = createAgent<Schema>({
   authSecret: process.env.FOREST_AUTH_SECRET!,
