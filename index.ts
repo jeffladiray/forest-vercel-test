@@ -44,6 +44,9 @@ export default async () => {
     agent.mountOnStandaloneServer(Number(process.env.APPLICATION_PORT));
     
     await agent.start();
+    return async (): Promise<void> => {
+      await agent?.stop();
+    };
   } catch(err) {
     console.error(err);
   }
