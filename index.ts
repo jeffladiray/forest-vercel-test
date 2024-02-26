@@ -34,7 +34,7 @@ export default (async function handler() {
       envSecret: process.env.FOREST_ENV_SECRET!,
     
       isProduction: process.env.NODE_ENV === 'production',
-      
+      schemaPath: __dirname + '/.forestadmin-schema.json',
       typingsPath: './typings.ts',
       typingsMaxDepth: 5,
     });
