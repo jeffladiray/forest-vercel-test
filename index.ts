@@ -2,7 +2,7 @@ import type { SslMode } from '@forestadmin/datasource-sql';
 
 import 'dotenv/config';
 import { createAgent } from '@forestadmin/agent';
-import { createSqlDataSource } from '@forestadmin/datasource-sql';
+import { createSqlDataSource, introspect } from '@forestadmin/datasource-sql';
 import usersCustomization from './customizations/users';
 import ticketsCustomization from './customizations/tickets';
 import ordersCustomization from './customizations/orders';
@@ -10,9 +10,33 @@ import couponsCustomization from './customizations/coupons';
 import pg from 'pg';
 import type { Schema } from './typings';
 import path from 'path';
-
-export default async () => {
+import fs from 'fs';
+export default (async () => {
   try {
+
+    const dbCredentials = {
+      uri: process.env.DATABASE_URL,
+      schema: process.env.DATABASE_SCHEMA,
+      sslMode: process.env.DATABASE_SSL_MODE as SslMode,
+    };
+
+    let introspection;
+    try {
+      // The introspection is JSON serializable. You can store it in a file.
+      // Read it from the file if it exists.
+      introspection = JSON.parse(fs.readFileSync('./my-database-introspection.json', 'utf-8'));
+    } catch (e) {
+      if (e.code === 'ENOENT') {
+        // The file does not exist, we need to introspect the database.
+        introspection = await introspect(dbCredentials);
+        fs.writeFileSync(
+          './my-database-introspection.json',
+          JSON.stringify(introspection),
+        );
+      } else {
+        console.log(e);
+      }
+    }
     console.log(__dirname);
     console.log(path.resolve(__dirname, './.forestadmin-schema.json'));
     
@@ -29,12 +53,10 @@ export default async () => {
     agent
       .addDataSource(
         createSqlDataSource({
-          uri: process.env.DATABASE_URL,
-          schema: process.env.DATABASE_SCHEMA,
-          sslMode: process.env.DATABASE_SSL_MODE as SslMode,
+          ...dbCredentials,
           dialect: 'postgres',
           dialectModule: pg,
-        }),
+        }, { introspection }),
       )
       .customizeCollection('users', usersCustomization)
       .customizeCollection('tickets', ticketsCustomization)
@@ -50,4 +72,4 @@ export default async () => {
   } catch(err) {
     console.error(err);
   }
-}
+});
