@@ -41,7 +41,7 @@ export default async () => {
       .customizeCollection('orders', ordersCustomization)
       .customizeCollection('coupons', couponsCustomization);
     
-    agent.mountOnStandaloneServer(Number(process.env.PORT));
+    agent.mountOnStandaloneServer(3310);
     
     await agent.start();
     return async (): Promise<void> => {
