@@ -24,7 +24,7 @@ export default (async function handler() {
     try {
       // The introspection is JSON serializable. You can store it in a file.
       // Read it from the file if it exists.
-      introspection = JSON.parse(fs.readFileSync('./my-database-introspection.json', 'utf-8'));
+      introspection = JSON.parse(fs.readFileSync(__dirname + '/my-database-introspection.json', 'utf-8'));
     } catch (e) {
       console.log('err', e);
     }
