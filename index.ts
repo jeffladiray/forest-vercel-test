@@ -26,6 +26,7 @@ agent
       uri: process.env.DATABASE_URL,
       schema: process.env.DATABASE_SCHEMA,
       sslMode: process.env.DATABASE_SSL_MODE as SslMode,
+      dialect: 'postgres',
     }),
   )
   .customizeCollection('users', usersCustomization)

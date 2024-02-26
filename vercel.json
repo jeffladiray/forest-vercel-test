@@ -20,7 +20,7 @@
   ],
   "devCommand": "yarn start",
   "framework": null,
-  "installCommand": "yarn install && yarn install pg",
+  "installCommand": "yarn install",
   "routes": [
     {
       "src": "/(.*)",
