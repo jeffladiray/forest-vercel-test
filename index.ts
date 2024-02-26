@@ -26,19 +26,8 @@ export default (async function handler() {
       // Read it from the file if it exists.
       introspection = JSON.parse(fs.readFileSync('./my-database-introspection.json', 'utf-8'));
     } catch (e) {
-      if (e.code === 'ENOENT') {
-        // The file does not exist, we need to introspect the database.
-        introspection = await introspect(dbCredentials);
-        fs.writeFileSync(
-          './my-database-introspection.json',
-          JSON.stringify(introspection),
-        );
-      } else {
-        console.log(e);
-      }
+      console.log('err', e);
     }
-    console.log(__dirname);
-    console.log(path.resolve(__dirname, './.forestadmin-schema.json'));
     
     const agent = createAgent<Schema>({
       authSecret: process.env.FOREST_AUTH_SECRET!,
