@@ -58,8 +58,8 @@ export default (async function handler() {
     agent.mountOnExpress(express);
     
     await agent.start();
-    return express;
+    return app;
   } catch(err) {
     console.error(err);
   }
-})();
+});
