@@ -11,7 +11,10 @@ import pg from 'pg';
 import type { Schema } from './typings';
 import path from 'path';
 import fs from 'fs';
+
+import express from 'express';
 export default (async function handler() {
+  const app = express();
   try {
 
     const dbCredentials = {
@@ -52,12 +55,10 @@ export default (async function handler() {
       // .customizeCollection('orders', ordersCustomization)
       // .customizeCollection('coupons', couponsCustomization);
     
-    agent.mountOnStandaloneServer(3310);
+    agent.mountOnExpress(express);
     
     await agent.start();
-    return async (): Promise<void> => {
-      await agent?.stop();
-    };
+    return express;
   } catch(err) {
     console.error(err);
   }
