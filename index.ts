@@ -55,7 +55,7 @@ export default (async function handler() {
       // .customizeCollection('orders', ordersCustomization)
       // .customizeCollection('coupons', couponsCustomization);
     
-    agent.mountOnExpress(express);
+    agent.mountOnExpress(app);
     
     await agent.start();
     return app;
