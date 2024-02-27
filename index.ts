@@ -41,6 +41,7 @@ async function buildServer() {
       schemaPath: __dirname + '/.forestadmin-schema.json',
       typingsPath: './typings.ts',
       typingsMaxDepth: 5,
+      skipSchemaUpdate: true,
     });
     
     agent
