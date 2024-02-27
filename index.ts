@@ -13,10 +13,11 @@ import path from 'path';
 import fs from 'fs';
 
 import express from 'express';
-export default (async function handler() {
+const app = express();
+
+async function buildServer() {
   const app = express();
   try {
-
     const dbCredentials = {
       uri: process.env.DATABASE_URL,
       schema: process.env.DATABASE_SCHEMA,
@@ -62,4 +63,9 @@ export default (async function handler() {
   } catch(err) {
     console.error(err);
   }
-});
+}
+
+export default async function (req, res) {
+  const server = await buildServer();
+  return server(req, res);
+}
