@@ -49,7 +49,7 @@ async function buildServer() {
       .addDataSource(
         createSqlDataSource({
           ...dbCredentials,
-          dialect: 'postgres',
+          dialect: 'pg',
           dialectModule: pg,
         }, { introspection }),
       )
@@ -69,5 +69,7 @@ async function buildServer() {
 
 export default async function (req, res) {
   const server = await buildServer();
-  return server(req, res);
+  server.listen(3310, () => {
+    console.log('started');
+  });
 }
