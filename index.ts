@@ -67,9 +67,8 @@ async function buildServer() {
   }
 }
 
-export default async function (req, res) {
-  const server = await buildServer();
-  server.listen(3310, () => {
-    console.log('started');
+buildServer().then((app) => {
+  app.listen(3310, () => {
+    console.log('Your admin panel is available here');
   });
-}
+});
