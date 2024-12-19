@@ -44,6 +44,7 @@ async function buildServer() {
       typingsPath: './typings.ts',
       typingsMaxDepth: 5,
       instantCacheRefresh: false,
+      skipSchemaUpdate: true,
     });
 
     agent.addDataSource(
