@@ -41,7 +41,6 @@ async function buildServer() {
       schemaPath: __dirname + '/.forestadmin-schema.json',
       typingsPath: './typings.ts',
       typingsMaxDepth: 5,
-      skipSchemaUpdate: true,
       instantCacheRefresh: false,
     });
     
@@ -51,7 +50,7 @@ async function buildServer() {
           ...dbCredentials,
           dialect: 'pg',
           dialectModule: pg,
-        }),
+        }, { introspection }),
       )
       // .customizeCollection('users', usersCustomization)
       // .customizeCollection('tickets', ticketsCustomization)
