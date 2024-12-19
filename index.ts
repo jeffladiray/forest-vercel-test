@@ -51,7 +51,7 @@ async function buildServer() {
           ...dbCredentials,
           dialect: 'pg',
           dialectModule: pg,
-        }, { introspection }),
+        }),
       )
       // .customizeCollection('users', usersCustomization)
       // .customizeCollection('tickets', ticketsCustomization)
