@@ -67,8 +67,10 @@ async function buildServer() {
   }
 }
 
-buildServer().then((app) => {
+export default buildServer().then((app) => {
   app.listen(3310, () => {
     console.log('Your admin panel is available here');
   });
+    return app;
 });
+
